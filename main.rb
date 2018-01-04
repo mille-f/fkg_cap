@@ -5,10 +5,12 @@ require './client'
 
 $client.user_timeline("flower_staff", {count: 200}).each do |timeline|
   txt = timeline.text
-#   timeline.media.each do |m|
-#     puts m.media_url
-#   end
   if txt.include?("花騎士紹介")
-    puts $client.status(timeline.id, tweet_mode: "extended").attrs
+    puts txt
+    m = $client.status(timeline.id, tweet_mode: "extended").attrs[:extended_entities][:media]
+    m.each do |mm|
+      puts mm[:media_url]
+    end
+    puts ""
   end
 end
